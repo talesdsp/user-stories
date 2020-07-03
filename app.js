@@ -2,6 +2,7 @@ const morgan = require("morgan")
 const connectDB = require("./config/db")
 const exphbs = require("express-handlebars")
 const express = require("express")
+const methodOverride = require("method-override")
 const app = express()
 const path = require("path")
 const passport = require("passport")
@@ -43,6 +44,20 @@ connectDB()
 // Body parser
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+
+// Method Override
+app.use(
+  methodOverride(
+    (req,
+    (res) => {
+      if (req.body && typeof req.body === "object" && "_method" in req.body) {
+        let method = req.body._method
+        delete req.body._method
+        return method
+      }
+    })
+  )
+)
 
 // Logger
 if (process.env.NODE_ENV === "development") {
