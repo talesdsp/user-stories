@@ -31,6 +31,12 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+// Set global var
+app.use(function (req, res, next) {
+  res.locals.user = req.user || null
+  next()
+})
+
 // DATABASE
 connectDB()
 
@@ -44,7 +50,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // HandleBars Helpers
-const { formatDate, stripTags, truncate } = require("./helpers/hsb")
+const { editIcon, formatDate, stripTags, truncate } = require("./helpers/hsb")
 
 // HandleBars
 app.engine(
@@ -54,6 +60,7 @@ app.engine(
       formatDate,
       stripTags,
       truncate,
+      editIcon,
     },
     defaultLayout: "main",
     extname: ".hbs",
