@@ -50,7 +50,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // HandleBars Helpers
-const { editIcon, formatDate, stripTags, truncate } = require("./helpers/hsb")
+const { editIcon, formatDate, stripTags, truncate, select } = require("./helpers/hsb")
 
 // HandleBars
 app.engine(
@@ -61,6 +61,7 @@ app.engine(
       stripTags,
       truncate,
       editIcon,
+      select,
     },
     defaultLayout: "main",
     extname: ".hbs",
